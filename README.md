@@ -24,14 +24,6 @@
 - **HTML5** - Struktur dasar aplikasi web
 - **JavaScript ES6+** - Logika aplikasi dan interaktivitas
 
-## 📱 Tampilan Responsif
-
-FineIn dirancang dengan pendekatan mobile-first, memastikan pengalaman pengguna yang optimal di berbagai ukuran layar:
-
-- **Desktop** (>1024px) - Tampilan penuh dengan semua fitur
-- **Tablet** (768px-1024px) - Layout yang disesuaikan untuk layar menengah
-- **Mobile** (<768px) - Antarmuka yang dioptimalkan untuk layar kecil
-
 ## 🔍 Struktur Tes
 
 Tes kondisi mental di FineIn terdiri dari 7 bagian utama:
@@ -85,17 +77,6 @@ FineIn menggunakan algoritma sederhana namun efektif untuk menganalisis jawaban 
 ```bash
 npm run build
 ```
-
-## 📸 Screenshot
-
-### Landing Page
-![Landing Page](https://i.imgur.com/placeholder-landing.png)
-
-### Quiz Page
-![Quiz Page](https://i.imgur.com/placeholder-quiz.png)
-
-### Result Page
-![Result Page](https://i.imgur.com/placeholder-result.png)
 
 ## ⚠️ Disclaimer
 
