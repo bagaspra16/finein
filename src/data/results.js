@@ -130,6 +130,28 @@ const results = {
         "Terapi keluarga, terutama untuk remaja",
         "Dalam kasus parah, perawatan di rumah sakit mungkin diperlukan"
       ]
+    },
+    personality: {
+      title: "Gangguan Kepribadian",
+      description: "Gangguan kepribadian adalah pola pikir, perasaan, dan perilaku yang kaku dan tidak sehat yang menyebabkan masalah dalam fungsi dan hubungan sosial. Orang dengan gangguan kepribadian sering mengalami kesulitan dalam memahami dan berhubungan dengan situasi dan orang lain.",
+      facts: [
+        "Gangguan kepribadian mempengaruhi sekitar 9% populasi dunia",
+        "Ada beberapa tipe gangguan kepribadian, termasuk borderline, narsistik, antisosial, dan avoidant",
+        "Gangguan kepribadian biasanya mulai berkembang pada masa remaja atau dewasa awal",
+        "Kombinasi faktor genetik dan lingkungan berperan dalam perkembangan gangguan kepribadian"
+      ],
+      examples: [
+        "Kesulitan mempertahankan hubungan yang stabil dan sehat",
+        "Perasaan kosong atau tidak memiliki identitas diri yang jelas",
+        "Perubahan mood yang cepat dan intens",
+        "Perilaku impulsif dan berisiko tinggi"
+      ],
+      treatment: [
+        "Psikoterapi, terutama Dialectical Behavior Therapy (DBT) dan Cognitive Behavioral Therapy (CBT)",
+        "Terapi kelompok untuk meningkatkan keterampilan sosial",
+        "Dalam beberapa kasus, obat-obatan untuk mengatasi gejala tertentu seperti kecemasan atau depresi",
+        "Dukungan jangka panjang dan konsistensi dalam perawatan"
+      ]
     }
   };
   

@@ -264,3 +264,111 @@
     width: 100%;
   }
 }
+
+/* Tambahkan styling untuk ringkasan hasil */
+.result-summary {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.result-completion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.completion-circle {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 15px;
+}
+
+.circular-chart {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke: #6e8efb;
+  animation: progress 1.5s ease-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}
+
+.percentage {
+  fill: #6e8efb;
+  font-size: 0.5em;
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+.completion-text {
+  color: #555;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Styling untuk perhatian tambahan */
+.secondary-concerns {
+  background-color: #f0f4ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0 30px;
+  border-left: 4px solid #6e8efb;
+}
+
+.secondary-title {
+  color: #6e8efb;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.secondary-list {
+  list-style: none;
+  padding: 0;
+}
+
+.secondary-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+  color: #555;
+}
+
+.secondary-item:last-child {
+  border-bottom: none;
+}
+
+/* Responsif untuk perangkat mobile */
+@media (max-width: 768px) {
+  .completion-circle {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .completion-text {
+    font-size: 0.9rem;
+  }
+  
+  .secondary-title {
+    font-size: 1.1rem;
+  }
+}

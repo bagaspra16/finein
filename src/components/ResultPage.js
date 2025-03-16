@@ -1,18 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import questions from '../data/questions';
 import results from '../data/results';
+import CompletionModal from './CompletionModal';
 import '../styles/ResultPage.css';
 
 function ResultPage({ answers, onRestart }) {
+  const [showModal, setShowModal] = useState(true);
+  
   // Analisis jawaban
   const analyzeAnswers = () => {
     const categories = {
+      general: 0,
       depression: 0,
       anxiety: 0,
       bipolar: 0,
       schizophrenia: 0,
       ptsd: 0,
-      eating: 0
+      eating: 0,
+      personality: 0
     };
     
     const scores = {
@@ -45,23 +50,31 @@ function ResultPage({ answers, onRestart }) {
     });
     
     // Urutkan kategori berdasarkan persentase tertinggi
-    const sortedCategories = Object.keys(percentages).sort(
-      (a, b) => percentages[b] - percentages[a]
-    );
+    const sortedCategories = Object.keys(percentages)
+      .filter(category => category !== 'general') // Exclude general category from primary concern
+      .sort((a, b) => percentages[b] - percentages[a]);
     
     // Pastikan ada kategori yang terdeteksi, jika tidak gunakan default
     const primaryConcern = sortedCategories.length > 0 ? sortedCategories[0] : 'depression';
     
+    // Identifikasi kategori sekunder jika ada
+    const secondaryConcerns = sortedCategories.slice(1, 3).filter(category => 
+      percentages[category] > 40 // Hanya tampilkan jika persentase di atas 40%
+    );
+    
     return {
       primaryConcern,
-      percentages
+      secondaryConcerns,
+      percentages,
+      answeredQuestions: Object.keys(answers).length,
+      totalQuestions: questions.length
     };
   };
   
-  const { primaryConcern, percentages } = analyzeAnswers();
+  const { primaryConcern, secondaryConcerns, percentages, answeredQuestions, totalQuestions } = analyzeAnswers();
   
   // Pastikan result ada, jika tidak gunakan fallback
-  const result = results[primaryConcern] || {
+  const primaryResult = results[primaryConcern] || {
     title: "Tidak Terdeteksi",
     description: "Tidak ada masalah mental yang terdeteksi secara signifikan berdasarkan jawaban Anda.",
     facts: ["Kesehatan mental adalah bagian penting dari kesehatan secara keseluruhan."],
@@ -81,41 +94,87 @@ function ResultPage({ answers, onRestart }) {
   
   return (
     <div className="result-container">
+      {showModal && (
+        <CompletionModal 
+          answeredQuestions={answeredQuestions} 
+          totalQuestions={totalQuestions} 
+          onClose={() => setShowModal(false)} 
+        />
+      )}
+      
       <h1 className="result-title">Hasil Tes Kondisi Mental</h1>
       
+      {/* <div className="result-summary">
+        <div className="result-completion">
+          <div className="completion-circle">
+            <svg viewBox="0 0 36 36" className="circular-chart">
+              <path className="circle-bg"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+              <path className="circle"
+                strokeDasharray={`${(answeredQuestions / totalQuestions) * 100}, 100`}
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+              />
+              <text x="18" y="20.35" className="percentage">{Math.round((answeredQuestions / totalQuestions) * 100)}%</text>
+            </svg>
+          </div>
+          <p className="completion-text">Anda telah menjawab {answeredQuestions} dari {totalQuestions} pertanyaan</p>
+        </div>
+      </div> */}
+      
       <div className="result-card">
-        <h2 className="concern-title">Kemungkinan Masalah: {result.title}</h2>
-        <p className="concern-description">{result.description}</p>
+        <h2 className="concern-title">Kemungkinan Masalah: {primaryResult.title}</h2>
+        <p className="concern-description">{primaryResult.description}</p>
+        
+        {secondaryConcerns.length > 0 && (
+          <div className="secondary-concerns">
+            <h3 className="secondary-title">Perhatian Tambahan:</h3>
+            <ul className="secondary-list">
+              {secondaryConcerns.map(concern => (
+                <li key={concern} className="secondary-item">
+                  {results[concern]?.title || concern} ({Math.round(percentages[concern])}%)
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         
         <div className="result-chart">
-          {Object.keys(percentages).sort((a, b) => percentages[b] - percentages[a]).map(category => {
-            // Pastikan results[category] ada sebelum mengakses properti title
-            const categoryTitle = results[category] ? results[category].title : category;
-            const percentage = Math.round(percentages[category]);
-            
-            return (
-              <div key={category} className="chart-item">
-                <div className="chart-label">
-                  <span className="chart-label-text">{categoryTitle}</span>
-                  <span className="chart-percentage-text">{percentage}%</span>
+          {Object.keys(percentages)
+            .filter(category => category !== 'general') // Exclude general category from chart
+            .sort((a, b) => percentages[b] - percentages[a])
+            .map(category => {
+              // Pastikan results[category] ada sebelum mengakses properti title
+              const categoryTitle = results[category] ? results[category].title : category;
+              const percentage = Math.round(percentages[category]);
+              
+              return (
+                <div key={category} className="chart-item">
+                  <div className="chart-label">
+                    <span className="chart-label-text">{categoryTitle}</span>
+                    <span className="chart-percentage-text">{percentage}%</span>
+                  </div>
+                  <div className="chart-bar-container">
+                    <div 
+                      className="chart-bar" 
+                      style={{ width: '0%' }}
+                      data-width={`${percentage}%`}
+                    ></div>
+                  </div>
                 </div>
-                <div className="chart-bar-container">
-                  <div 
-                    className="chart-bar" 
-                    style={{ width: '0%' }}
-                    data-width={`${percentage}%`}
-                  ></div>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
         
         <div className="result-details">
           <div className="detail-section">
-            <h3>Fakta tentang {result.title}</h3>
+            <h3>Fakta tentang {primaryResult.title}</h3>
             <ul>
-              {result.facts.map((fact, index) => (
+              {primaryResult.facts.map((fact, index) => (
                 <li key={index}>{fact}</li>
               ))}
             </ul>
@@ -124,7 +183,7 @@ function ResultPage({ answers, onRestart }) {
           <div className="detail-section">
             <h3>Contoh Gejala</h3>
             <ul>
-              {result.examples.map((example, index) => (
+              {primaryResult.examples.map((example, index) => (
                 <li key={index}>{example}</li>
               ))}
             </ul>
@@ -133,7 +192,7 @@ function ResultPage({ answers, onRestart }) {
           <div className="detail-section">
             <h3>Penanganan yang Disarankan</h3>
             <ul>
-              {result.treatment.map((treatment, index) => (
+              {primaryResult.treatment.map((treatment, index) => (
                 <li key={index}>{treatment}</li>
               ))}
             </ul>
@@ -154,8 +213,7 @@ function ResultPage({ answers, onRestart }) {
         </button>
       </div>
     </div>
-
-);
+  );
 }
 
 export default ResultPage;
