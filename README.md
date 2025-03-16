@@ -1,7 +1,5 @@
 # 🧠 FineIn - Website Pengecek Kondisi Mental
 
-![FineIn Banner](https://i.imgur.com/placeholder-image.png)
-
 ## 📋 Deskripsi
 
 **FineIn** adalah aplikasi web interaktif yang dirancang untuk membantu pengguna mengenali tanda-tanda awal masalah kesehatan mental. Aplikasi ini menyediakan tes komprehensif yang terdiri dari serangkaian pertanyaan yang disusun secara struktural untuk mengidentifikasi parameter masalah mental, mulai dari gejala umum hingga gangguan mental yang lebih spesifik seperti depresi, kecemasan, gangguan bipolar, skizofrenia, PTSD, dan gangguan makan.
