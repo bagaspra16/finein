@@ -84,10 +84,6 @@ FineIn dirancang sebagai alat skrining awal dan bukan pengganti diagnosis profes
 
 Dikembangkan dengan ❤️ oleh [bagaspra16](https://bagaspra16.com)
 
-## 📄 Lisensi
-
-Proyek ini dilisensikan di bawah [MIT License](LICENSE)
-
 ---
 
 <p align="center">
